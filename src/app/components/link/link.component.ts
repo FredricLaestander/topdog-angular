@@ -4,10 +4,7 @@ import { Component, input } from '@angular/core';
   selector: 'app-link',
   imports: [],
   template: `
-    <a
-      href="{{ href() }}"
-      [className]="variant() === 'button' ? 'button' : 'link'"
-    >
+    <a [href]="href()" [className]="variant() === 'button' ? 'button' : 'link'">
       {{ label() }}
     </a>
   `,
