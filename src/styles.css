@@ -7,3 +7,7 @@
 .link {
   @apply hover:underline hover:text-zinc-950 transition;
 }
+
+app-header {
+  @apply w-full;
+}
