@@ -4,7 +4,11 @@ import { input, Component, output } from '@angular/core';
   selector: 'app-button',
   imports: [],
   template: `
-    <button (click)="onClick.emit()" class="button">
+    <button
+      (click)="onClick.emit()"
+      class="flex px-4 py-2 bg-zinc-950 text-white rounded-full hover:bg-zinc-800 transition cursor-pointer"
+      [class.w-full]="full()"
+    >
       {{ label() }}
     </button>
   `,
@@ -12,4 +16,5 @@ import { input, Component, output } from '@angular/core';
 export class ButtonComponent {
   label = input.required<string>();
   onClick = output();
+  full = input<boolean>(false);
 }
