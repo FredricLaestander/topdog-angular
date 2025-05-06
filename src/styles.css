@@ -1,9 +1,9 @@
 @import "tailwindcss";
 
-.link {
-  @apply hover:underline hover:text-zinc-950 transition;
-}
-
 app-header {
   @apply w-full;
+}
+
+app-sign-up {
+  @apply flex flex-col items-center w-full;
 }
