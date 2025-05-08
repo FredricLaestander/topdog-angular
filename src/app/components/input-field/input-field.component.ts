@@ -1,8 +1,9 @@
 import { Component, input } from '@angular/core';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-input-field',
-  imports: [],
+  imports: [ReactiveFormsModule],
   template: `
     <div class="gap-1 flex flex-col w-full">
       <div class="flex justify-between items-center">
@@ -12,6 +13,7 @@ import { Component, input } from '@angular/core';
         <span id="username-error" class="text-xs text-red-400"></span>
       </div>
       <input
+        [formControl]="control()"
         [class]="getClasses()"
         [type]="type()"
         [name]="name()"
@@ -29,6 +31,8 @@ export class InputFieldComponent {
   placeholder = input.required<string>();
   variant = input<'primary' | 'secondary'>('primary');
   required = input<boolean>(true);
+
+  control = input.required<FormControl>();
 
   getClasses() {
     const shared = 'rounded-xl px-4 py-2 gap-2 placeholder:text-zinc-400';
