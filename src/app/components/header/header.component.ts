@@ -5,7 +5,7 @@ import { LinkComponent } from '../link/link.component';
 @Component({
   selector: 'app-header',
   imports: [ButtonComponent, LinkComponent],
-  template: `<header class="flex p-4 justify-between">
+  template: `<header class="flex w-full absolute p-4 justify-between">
     <a href="/">
       <img src="/logo.svg" alt="logo" />
     </a>
