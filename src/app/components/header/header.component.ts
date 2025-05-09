@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
-import { ButtonComponent } from '../button/button.component';
 import { LinkComponent } from '../link/link.component';
 
 @Component({
   selector: 'app-header',
-  imports: [ButtonComponent, LinkComponent],
+  imports: [LinkComponent],
   template: `<header class="flex w-full absolute p-4 justify-between">
     <a href="/">
       <img src="/logo.svg" alt="logo" />
@@ -16,7 +15,7 @@ import { LinkComponent } from '../link/link.component';
         <app-link href="/createTierList" label="Create tier list" />
       </div>
 
-      <app-button label="Log in" />
+      <app-link href="/log-in" label="Log in" variant="button" />
       <!-- <img src="/profile.svg" alt="profile icon" class="size-8" /> -->
     </nav>
   </header>`,

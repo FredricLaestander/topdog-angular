@@ -16,4 +16,18 @@ export class AuthService {
       password,
     });
   }
+
+  logInUser(email: string, password: string) {
+    return this.http.post<{ accessToken: string }>(
+      environment.apiUrl + '/auth/login',
+      {
+        email,
+        password,
+      }
+    );
+  }
+
+  setAccessToken(accessToken: string) {
+    localStorage.setItem('access-token', accessToken);
+  }
 }
