@@ -24,7 +24,7 @@ import { Router } from '@angular/router';
   ],
   template: `
     <main
-      class="w-full grow max-w-lg px-4 pt-30 pb-12 flex flex-col items-center h-full justify-between"
+      class="w-full min-h-screen grow max-w-lg px-4 pt-30 pb-12 flex flex-col items-center justify-between"
     >
       <section class="flex grow flex-col gap-8 w-full">
         <h2 class="font-bold w-full text-center text-2xl text-zinc-950">
