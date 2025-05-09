@@ -4,6 +4,7 @@ app-header {
   @apply w-full;
 }
 
-app-sign-up {
+app-sign-up,
+app-log-in {
   @apply flex flex-col items-center w-full;
 }
