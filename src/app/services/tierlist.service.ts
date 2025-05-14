@@ -8,6 +8,18 @@ import { List } from '../../types';
 })
 export class TierlistService {
   http = inject(HttpClient);
+  accessToken = localStorage.getItem('access-token');
+
+  createList(name: string, description?: string) {
+    return this.http.post<{ listId: string }>(
+      environment.apiUrl + '/lists',
+      {
+        name,
+        description,
+      },
+      { headers: { Authorization: 'Bearer ' + this.accessToken } }
+    );
+  }
 
   getAll() {
     return this.http.get<List[]>(environment.apiUrl + '/lists');

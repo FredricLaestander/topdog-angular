@@ -10,9 +10,9 @@ import { LinkComponent } from '../link/link.component';
     </a>
 
     <nav class="px-4 flex md:gap-8 items-center">
-      <div class="hidden text-zinc-700 md:flex md:gap-8">
+      <div class="flex text-zinc-700 md:flex md:gap-8">
         <app-link href="/" label="Home" />
-        <app-link href="/createTierList" label="Create tier list" />
+        <app-link href="/create-list" label="Create tier list" />
       </div>
 
       <app-link href="/log-in" label="Log in" variant="button" />

@@ -19,7 +19,6 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
         [name]="name()"
         [id]="name()"
         [placeholder]="placeholder()"
-        [required]="required()"
       />
     </div>
   `,
@@ -30,7 +29,6 @@ export class InputFieldComponent {
   name = input.required<string>();
   placeholder = input.required<string>();
   variant = input<'primary' | 'secondary'>('primary');
-  required = input<boolean>(true);
 
   control = input.required<FormControl>();
 
