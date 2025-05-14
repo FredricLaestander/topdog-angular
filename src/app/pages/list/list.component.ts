@@ -26,13 +26,17 @@ import { AsyncPipe } from '@angular/common';
           </button>
         </div>
 
-        <p id="description" class="text-zinc-400 text-sm">testar 1-2 1-2</p>
+        <p id="description" class="text-zinc-400 text-sm">
+          {{ list.description }}
+        </p>
 
         <div class="flex justify-between w-full">
           <div class="flex items-center gap-2">
             <img src="/profile.svg" alt="profile" class="size-6" />
 
-            <p id="username" class="text-xs text-zinc-950"></p>
+            <p id="username" class="text-xs text-zinc-950">
+              {{ list.user.username }}
+            </p>
           </div>
 
           <p id="error" class="text-red-400"></p>
@@ -40,7 +44,9 @@ import { AsyncPipe } from '@angular/common';
       </section>
 
       <ul id="tiers" class="w-full">
-        <app-tier name="hello" color="#f87171" />
+        @for (tier of list.tiers; track tier._id){
+        <app-tier name="{{ tier.name }}" color="{{ tier.color }}" />
+        }
       </ul>
     </main>
     }
@@ -60,6 +66,8 @@ export class ListComponent {
     this.list$.subscribe({
       next: (data) => {
         console.log(data);
+
+        console.log(data.tiers);
       },
     });
   }
