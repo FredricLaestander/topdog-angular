@@ -63,12 +63,5 @@ export class ListComponent {
 
   ngOnInit() {
     this.list$ = this.tierlistService.getListById(this.id());
-    this.list$.subscribe({
-      next: (data) => {
-        console.log(data);
-
-        console.log(data.tiers);
-      },
-    });
   }
 }
