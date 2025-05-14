@@ -12,4 +12,8 @@ export class TierlistService {
   getAll() {
     return this.http.get<List[]>(environment.apiUrl + '/lists');
   }
+
+  getListById(id: string) {
+    return this.http.get<List>(environment.apiUrl + `/lists/${id}`);
+  }
 }

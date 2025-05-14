@@ -5,6 +5,7 @@ app-header {
 }
 
 app-sign-up,
-app-log-in {
+app-log-in,
+app-list {
   @apply flex flex-col items-center w-full;
 }
