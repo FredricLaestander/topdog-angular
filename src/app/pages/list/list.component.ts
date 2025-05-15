@@ -1,4 +1,4 @@
-import { Component, computed, inject } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { TierlistService } from '../../services/tierlist.service';
 import { LucideAngularModule, Settings } from 'lucide-angular';
 import { TierComponent } from '../../components/tier/tier.component';
@@ -6,9 +6,15 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { List } from '../../../types';
 import { AsyncPipe } from '@angular/common';
+import { TierListSettingsComponent } from '../../components/tier-list-settings/tier-list-settings.component';
 @Component({
   selector: 'app-list',
-  imports: [AsyncPipe, LucideAngularModule, TierComponent],
+  imports: [
+    AsyncPipe,
+    LucideAngularModule,
+    TierComponent,
+    TierListSettingsComponent,
+  ],
   template: `
     @if (list$ | async; as list) {
     <main class="w-full max-w-5xl p-4 pt-36 gap-8 flex flex-col">
@@ -18,7 +24,11 @@ import { AsyncPipe } from '@angular/common';
             {{ list.name }}
           </h2>
 
-          <button id="open-settings" class="size-8 p-1 flex cursor-pointer">
+          <button
+            (click)="openModal()"
+            id="open-settings"
+            class="p-2 items-center justify-center flex cursor-pointer rounded-full transition hover:bg-zinc-50"
+          >
             <lucide-icon
               [img]="settings"
               class="size-6 text-zinc-400"
@@ -49,12 +59,16 @@ import { AsyncPipe } from '@angular/common';
         }
       </ul>
     </main>
-    }
+
+    @if (isModalOpen()){
+    <app-tier-list-settings (closeModal)="closeModal()" />
+    } }
   `,
 })
 export class ListComponent {
   tierlistService = inject(TierlistService);
   readonly settings = Settings;
+  isModalOpen = signal(false);
 
   route = inject(ActivatedRoute);
 
@@ -63,5 +77,13 @@ export class ListComponent {
 
   ngOnInit() {
     this.list$ = this.tierlistService.getListById(this.id());
+  }
+
+  openModal() {
+    this.isModalOpen.set(true);
+  }
+
+  closeModal() {
+    this.isModalOpen.set(false);
   }
 }
