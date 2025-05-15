@@ -60,8 +60,13 @@ import { TierListSettingsComponent } from '../../components/tier-list-settings/t
       </ul>
     </main>
 
-    @if (isModalOpen()){
-    <app-tier-list-settings (closeModal)="closeModal()" />
+    @if (isModalOpen()) {
+    <app-tier-list-settings
+      (closeModal)="closeModal()"
+      [listId]="list._id"
+      [name]="list.name"
+      [description]="list.description"
+    />
     } }
   `,
 })

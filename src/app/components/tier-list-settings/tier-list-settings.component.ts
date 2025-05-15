@@ -1,4 +1,4 @@
-import { Component, output } from '@angular/core';
+import { Component, inject, input, output, signal } from '@angular/core';
 import { LucideAngularModule, X } from 'lucide-angular';
 import { InputFieldComponent } from '../input-field/input-field.component';
 import {
@@ -8,6 +8,8 @@ import {
   Validators,
 } from '@angular/forms';
 import { InputErrorComponent } from '../input-error/input-error.component';
+import { Router } from '@angular/router';
+import { TierlistService } from '../../services/tierlist.service';
 
 @Component({
   selector: 'app-tier-list-settings',
@@ -64,12 +66,24 @@ import { InputErrorComponent } from '../input-error/input-error.component';
         <span>Delete list</span>
         <i data-lucide="trash-2" class="size-6 text-white"></i>
       </button>
+
+      @if (errorMessage()){
+      <span class="text-red-400 text-end font-bold"> {{ errorMessage() }} </span
+      >}
     </div>
   `,
 })
 export class TierListSettingsComponent {
   readonly x = X;
+
+  tierlistService = inject(TierlistService);
+
+  errorMessage = signal<null | string>(null);
   closeModal = output();
+
+  listId = input.required<string>();
+  name = input.required<string>();
+  description = input<string | undefined>();
 
   tierlistSettings = new FormGroup(
     {
@@ -79,7 +93,35 @@ export class TierListSettingsComponent {
     { updateOn: 'blur' }
   );
 
+  ngOnInit() {
+    this.tierlistSettings.controls.name.setValue(this.name());
+    this.tierlistSettings.controls.description.setValue(
+      this.description() || ''
+    );
+  }
+
   close() {
+    this.updateList();
     this.closeModal.emit();
+  }
+
+  updateList() {
+    if (this.tierlistSettings.valid) {
+      const name = this.tierlistSettings.value.name!;
+      const description = this.tierlistSettings.value.description!;
+
+      this.tierlistService
+        .updateList(this.listId(), name, description)
+        .subscribe({
+          next: () => {
+            window.location.reload();
+          },
+          error: (error) => {
+            this.errorMessage.set(error.error.errorMessage);
+          },
+        });
+    } else {
+      this.tierlistSettings.markAllAsTouched();
+    }
   }
 }

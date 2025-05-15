@@ -28,4 +28,15 @@ export class TierlistService {
   getListById(id: string) {
     return this.http.get<List>(environment.apiUrl + `/lists/${id}`);
   }
+
+  updateList(id: string, name: string, description?: string) {
+    return this.http.put<List>(
+      environment.apiUrl + `/lists/${id}`,
+      {
+        name,
+        description,
+      },
+      { headers: { Authorization: 'Bearer ' + this.accessToken } }
+    );
+  }
 }
