@@ -39,4 +39,10 @@ export class TierlistService {
       { headers: { Authorization: 'Bearer ' + this.accessToken } }
     );
   }
+
+  deleteList(id: string) {
+    return this.http.delete<List>(environment.apiUrl + `/lists/${id}`, {
+      headers: { Authorization: 'Bearer ' + this.accessToken },
+    });
+  }
 }

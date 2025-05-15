@@ -10,6 +10,7 @@ import {
 import { InputErrorComponent } from '../input-error/input-error.component';
 import { Router } from '@angular/router';
 import { TierlistService } from '../../services/tierlist.service';
+import { ButtonComponent } from '../button/button.component';
 
 @Component({
   selector: 'app-tier-list-settings',
@@ -18,6 +19,7 @@ import { TierlistService } from '../../services/tierlist.service';
     InputFieldComponent,
     ReactiveFormsModule,
     InputErrorComponent,
+    ButtonComponent,
   ],
   template: `
     <div
@@ -57,15 +59,7 @@ import { TierlistService } from '../../services/tierlist.service';
           />
         </div>
       </form>
-
-      <button
-        type="button"
-        id="delete"
-        class="button justify-between items-center w-full"
-      >
-        <span>Delete list</span>
-        <i data-lucide="trash-2" class="size-6 text-white"></i>
-      </button>
+      <app-button label="Delete tierlist" (onClick)="deleteList()" />
 
       @if (errorMessage()){
       <span class="text-red-400 text-end font-bold"> {{ errorMessage() }} </span
@@ -76,6 +70,7 @@ import { TierlistService } from '../../services/tierlist.service';
 export class TierListSettingsComponent {
   readonly x = X;
 
+  routerService = inject(Router);
   tierlistService = inject(TierlistService);
 
   errorMessage = signal<null | string>(null);
@@ -123,5 +118,16 @@ export class TierListSettingsComponent {
     } else {
       this.tierlistSettings.markAllAsTouched();
     }
+  }
+
+  deleteList() {
+    this.tierlistService.deleteList(this.listId()).subscribe({
+      next: () => {
+        this.routerService.navigate(['/']);
+      },
+      error: (error) => {
+        this.errorMessage.set(error.error.errorMessage);
+      },
+    });
   }
 }
