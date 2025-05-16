@@ -167,7 +167,7 @@ export class SignUpComponent {
 
       this.authService.createUser(username, email, password).subscribe({
         next: () => {
-          this.routerService.navigate(['/']);
+          this.routerService.navigate(['/log-in']);
         },
         error: (error) => {
           this.errorMessage.set(error.error.errorMessage);

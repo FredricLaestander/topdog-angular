@@ -45,6 +45,7 @@ import { TierlistService } from '../../services/tierlist.service';
           [control]="createForm.controls.name"
           [possibleErrors]="{
             required: 'Enter name of your new list',
+            maxlength: 'Enter a maximum of 255 characters'
           }"
         />
 
@@ -73,7 +74,10 @@ export class CreateListComponent {
 
   createForm = new FormGroup(
     {
-      name: new FormControl('', [Validators.required]),
+      name: new FormControl('', [
+        Validators.required,
+        Validators.maxLength(255),
+      ]),
       description: new FormControl(''),
     },
     { updateOn: 'blur' }

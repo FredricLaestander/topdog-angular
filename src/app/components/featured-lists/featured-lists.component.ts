@@ -11,11 +11,11 @@ import { RouterLink } from '@angular/router';
   template: `
     <ul id="featured" class="flex flex-row gap-4 overflow-x-scroll">
       @for (list of lists$ | async; track list._id) {
-      <li>
+      <li class="w-32 md:w-44">
         <a [routerLink]="['/list', list._id]">
           <div class="size-32 md:size-44 bg-zinc-500"></div>
 
-          <h3>{{ list.name }}</h3>
+          <h3 class="line-clamp-2">{{ list.name }}</h3>
         </a>
       </li>
       }
